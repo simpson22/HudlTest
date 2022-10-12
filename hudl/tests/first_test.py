@@ -3,8 +3,8 @@ import pytest
 from selenium import webdriver
 from hudl.page.login import LoginPage
 
-email = os.environ.get('HUDL_EMAIL')
-password = os.environ.get('HUDL_PASSWORD')
+email = os.environ.get("HUDL_EMAIL")
+password = os.environ.get("HUDL_PASSWORD")
 
 
 @pytest.fixture(scope="module")
@@ -17,11 +17,11 @@ def driver():
 def test_connect(driver):
     page = LoginPage(driver)
     page.load()
-    assert page.driver.title == 'Log In'
+    assert page.driver.title == "Log In"
 
 
 def test_login(driver):
-    page = LoginPage(driver)
-    page.load()
-    page.login(email, password)
-    assert page.driver.title == 'Home'
+    login_page = LoginPage(driver)
+    login_page.load()
+    home_page = login_page.login(email, password)
+    assert home_page.driver.title == "Home - Hudl"

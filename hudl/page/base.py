@@ -1,9 +1,24 @@
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.wait import WebDriverWait
+
+from selenium.common.exceptions import (
+    ElementNotVisibleException,
+    ElementNotSelectableException,
+)
 
 
-class BasePage():
+class BasePage:
     def __init__(self, driver: WebDriver) -> None:
         self.driver: WebDriver = driver
+        self.wait = WebDriverWait(
+            driver,
+            timeout=10,
+            poll_frequency=1,
+            ignored_exceptions=[
+                ElementNotVisibleException,
+                ElementNotSelectableException,
+            ],
+        )
 
     def close(self):
         try:
