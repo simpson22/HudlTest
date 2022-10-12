@@ -12,3 +12,6 @@ class LoginPage(BasePage):
 
     def selectEmail(self):
         self.driver.find_element(By.XPATH, "//input[@data-qa-id='email-input']").click()
+
+    def login(self, email, password):
+        self.driver.find_element(By.XPATH, "//input[@data-qa-id='email-input']").send_keys(email)
