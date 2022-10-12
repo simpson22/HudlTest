@@ -8,20 +8,22 @@ password = os.environ.get("HUDL_PASSWORD")
 
 
 @pytest.fixture(scope="module")
-def driver():
+def page():
     driver = webdriver.Chrome()
-    yield driver
+    page = LoginPage(driver)
+    yield page
+    page.close()
 
 
 # @pytest.mark.skip
-def test_connect(driver):
-    page = LoginPage(driver)
-    page.load()
-    assert page.driver.title == "Log In"
+def test_connect(page):
+    login_page = page
+    login_page.load()
+    assert login_page.driver.title == "Log In"
 
 
-def test_login(driver):
-    login_page = LoginPage(driver)
+def test_login(page):
+    login_page = page
     login_page.load()
     home_page = login_page.login(email, password)
     assert home_page.driver.title == "Home - Hudl"

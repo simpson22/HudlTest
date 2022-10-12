@@ -22,7 +22,6 @@ class BasePage:
 
     def close(self):
         try:
-            self.driver.close()
             self.driver.quit()
         except Exception as e:
             print(f"Couldn't close the web driver: {e}")
