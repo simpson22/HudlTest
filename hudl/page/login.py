@@ -19,3 +19,12 @@ class LoginPage(BasePage):
         ).send_keys(password)
         self.driver.find_element(By.XPATH, "//button[@data-qa-id='login-btn']").click()
         return HomePage(self.driver)
+
+    def badLogin(self, email, password):
+        self.driver.find_element(
+            By.XPATH, "//input[@data-qa-id='email-input']"
+        ).send_keys(email)
+        self.driver.find_element(
+            By.XPATH, "//input[@data-qa-id='password-input']"
+        ).send_keys(password)
+        self.driver.find_element(By.XPATH, "//button[@data-qa-id='login-btn']").click()

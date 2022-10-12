@@ -27,3 +27,20 @@ def test_login(page):
     login_page.load()
     home_page = login_page.login(email, password)
     assert home_page.driver.title == "Home - Hudl"
+
+
+@pytest.mark.parametrize(
+    "email,password",
+    [
+        (email, ""),
+        ("", password),
+        (email, password.upper()),
+        (email, password.lower()),
+        pytest.param(email.upper(), password, marks=pytest.mark.xfail),
+    ],
+)
+def test_bad_login(page, email, password):
+    login_page = page
+    login_page.load()
+    login_page.login(email, password)
+    assert login_page.driver.title != "Home - Hudl"
