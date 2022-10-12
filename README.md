@@ -53,9 +53,11 @@ https://www.hudl.com/login > Log in
 		No Email
 		Mistyped
 		Case Sensitive? (Shouldn't be)
+
 	Login Retry
 		Can't submit twice without change
 		Can submit on change and Succeed
+
 	Log In with an Organization?
 		Try non org login and Fail
 		Fail Redirect + Log in
