@@ -1,18 +1,73 @@
-README
+TODO:
+Cleanup Readme
+Comment Code
+Finish Test Cases
+Test on MacOS
+Cleanup the DSL, Improve Readability
+Improve Reporting?
 
-Prerequisites
+# HudlTest
 
-Python 3.10.7
+A demonstration test framework which tests the login functionality of https://www.hudl.com/
 
-venv
+## Prerequisites
 
-pip-tools
+### Python 3.10.7
 
-drivers in PATH
+This framework has been built and tested with Python 3.10.7
 
+It is likely compatible with more version of Python, but these have not been tested.
+
+### venv
+
+You may want to set up a virtual environment.
+
+From the current directory 
+```
+python -m venv
+```
+### Drivers
+
+The Chrome driver has been chosen for initial testing, please ensure you have downloaded chromedriver from: https://chromedriver.chromium.org/downloads
+
+And then ensure the ```PATH``` environment variable has been set to the filepath of the driver.
+
+e.g. On MacOS:
+
+```
+export PATH=$PATH:/path/to/driver
+```
+
+
+
+### pip-tools
+
+pip-tools has been used to help manage packages in the environment. requirements.in has been used to specify the direct dependencies of the HudlTest framework.
+
+The requirements.txt is then compiled from the requirements.in
+
+*example only, do not need to run:*
+```
+pip install pip-tools
+pip-compile requirements.in
+```
+
+So to install all dependencies required:
+
+*Do run this before executing tests:*
+```
+pip install -r requirements.txt
+```
+
+## Executing the tests
+
+Set ```HUDL_EMAIL``` and ```HUDL_PASSWORD``` environment variables with valid login credentials.
+
+```
 python -m pytest
+```
 
-NOTES:
+## NOTES:
 
 Different Browsers?
 Cross Functional Requirements?
