@@ -71,10 +71,9 @@ export HUDL_PASSWORD=*****************
 
 Then run the tests with the optional parameters to improve verbosity and summary report:
 
-From the HudlTest project directory
 
 ```
-python -m pytest -v -rA
+pytest -v -rA
 ```
 
 ## TODO:
