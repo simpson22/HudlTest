@@ -7,25 +7,27 @@ email = os.environ.get("HUDL_EMAIL")
 password = os.environ.get("HUDL_PASSWORD")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(
+    # scope="module"
+    # Enable or disable sharing the driver instance.
+    # Better to not share state unless making some local changes.
+)
 def page():
     driver = webdriver.Chrome()
     page = LoginPage(driver)
+    page.load()
     yield page
     page.close()
 
 
 # @pytest.mark.skip
 def test_connect(page):
-    login_page = page
-    login_page.load()
-    assert login_page.driver.title == "Log In"
+    assert page.driver.title == "Log In"
 
 
+# @pytest.mark.skip
 def test_login(page):
-    login_page = page
-    login_page.load()
-    home_page = login_page.login(email, password)
+    home_page = page.login(email, password)
     assert home_page.driver.title == "Home - Hudl"
 
 
@@ -39,8 +41,18 @@ def test_login(page):
         pytest.param(email.upper(), password, marks=pytest.mark.xfail),
     ],
 )
-def test_bad_login(page, email, password):
-    login_page = page
-    login_page.load()
-    login_page.login(email, password)
-    assert login_page.driver.title != "Home - Hudl"
+# @pytest.mark.skip
+def test_bad_login_combinations(page, email, password):
+    page.login(email, password)
+    assert page.driver.title != "Home - Hudl"
+
+
+# @pytest.mark.skip
+def test_retry_login_journey(page):
+    page.login(email, 'bad_password')
+    assert not page.login_button.is_enabled()
+    page.password_input.clear()
+    page.input_password(password)
+    assert page.login_button.is_enabled()
+    page.click_login()
+    assert page.driver.title == "Home - Hudl"
