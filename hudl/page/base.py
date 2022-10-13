@@ -25,3 +25,9 @@ class BasePage:
             self.driver.quit()
         except Exception as e:
             print(f"Couldn't close the web driver: {e}")
+
+    # Too flakey
+    def has_loaded(self, driver):
+        print("Checking if {} page is loaded.".format(driver.current_url))
+        page_state = driver.execute_script('return document.readyState;')
+        return page_state == 'complete'
