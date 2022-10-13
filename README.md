@@ -16,11 +16,15 @@ You may want to set up a virtual environment.
 
 From the current directory 
 ```
-python -m venv
+python -m venv .
 ```
 ### Drivers
 
-The Chrome driver has been chosen for initial testing, please ensure you have downloaded chromedriver from: https://chromedriver.chromium.org/downloads
+The Chrome Webdriver has been chosen for initial testing.
+
+Get Chrome if not already installed from: https://www.google.com/chrome/
+
+Then please ensure you have downloaded chromedriver from: https://chromedriver.chromium.org/downloads, selecting a version that matches the installed Chrome Browser.
 
 And then ensure the ```PATH``` environment variable has been set to the filepath of the driver.
 
@@ -30,6 +34,11 @@ e.g. On MacOS:
 export PATH=$PATH:/path/to/driver
 ```
 
+You may also need to bypass MacOS Gatekeeper in order for the Chromedriver to launch.
+
+```
+sudo xattr -r -d com.apple.quarantine /path/to/driver/filename
+```
 
 
 ### pip-tools
