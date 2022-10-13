@@ -9,7 +9,7 @@ class LoginPage(BasePage):
         "password_input": "//input[@data-qa-id='password-input']",
         "login_button": "//button[@data-qa-id='login-btn']",
         "login_organisation_button": "//button[@data-qa-id='log-in-with-organization-btn']",
-        "error_display": "//p[@data-qa-id='error-display']"
+        "error_display": "//p[@data-qa-id='error-display']",
     }
 
     def load(self):
@@ -48,7 +48,7 @@ class LoginPage(BasePage):
 class OrgLoginPage(BasePage):
     locators = {
         "email_input": "//input[@class='uni-input']",
-        "login_button": "//button[@data-qa-id='log-in-with-sso']"
+        "login_button": "//button[@data-qa-id='log-in-with-sso']",
     }
 
     def __init__(self, driver):
@@ -69,4 +69,6 @@ class OrgLoginPage(BasePage):
     def fail_login(self, email):
         self.input_email(email)
         self.click_login()
-        self.wait.until(lambda driver: driver.title != "Log In with Organization - Hudl")
+        self.wait.until(
+            lambda driver: driver.title != "Log In with Organization - Hudl"
+        )

@@ -43,7 +43,10 @@ def test_bad_login_combinations(page: LoginPage, email, password):
     page.login(email, password)
     assert page.driver.title != "Home - Hudl"
     assert page.isErrorDisplayed()
-    assert page.error_display.text == "We didn't recognize that email and/or password.Need help?"
+    assert (
+        page.error_display.text
+        == "We didn't recognize that email and/or password.Need help?"
+    )
 
 
 # @pytest.mark.skip
@@ -63,6 +66,9 @@ def test_retry_login_journey(page: LoginPage):
 def test_cannot_login_as_org(page: LoginPage):
     org_page = page.click_login_organisation()
     org_page.fail_login(valid_email)
-    assert page.driver.title == 'Log In'
+    assert page.driver.title == "Log In"
     assert page.isErrorDisplayed()
-    assert page.error_display.text == "This account can't log in with an organization yet. Please log in using your email and password."
+    assert (
+        page.error_display.text
+        == "This account can't log in with an organization yet. Please log in using your email and password."
+    )
