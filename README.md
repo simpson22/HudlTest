@@ -62,10 +62,19 @@ pip install -r requirements.txt
 
 ## Executing the tests
 
-Set ```HUDL_EMAIL``` and ```HUDL_PASSWORD``` environment variables with valid login credentials.
+Set ```HUDL_EMAIL``` and ```HUDL_PASSWORD``` environment variables with valid login credentials:
 
 ```
-python -m pytest
+export HUDL_EMAIL=*****************
+export HUDL_PASSWORD=*****************
+```
+
+Then run the tests with the optional parameters to improve verbosity and summary report:
+
+From the HudlTest project directory
+
+```
+python -m pytest -v -rA
 ```
 
 ## TODO:
