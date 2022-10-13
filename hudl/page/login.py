@@ -40,7 +40,7 @@ class LoginPage(BasePage):
         home_page = self.click_login()
         return home_page
 
-    def isErrorDisplayed(self):
+    def is_error_displayed(self):
         self.error_display = self.driver.find_element(By.XPATH, self.locators["error_display"])
         return self.error_display.is_displayed()
 

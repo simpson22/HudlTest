@@ -93,4 +93,5 @@ Quality of Life
 * Test Artifacts
 * Fluent Interface
 * Page Factory
+* Abstract Classes
 * BDD

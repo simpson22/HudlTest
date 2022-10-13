@@ -18,18 +18,18 @@ class HomePage(BasePage):
     def load(self):
         self.driver.get("https://www.hudl.com/home")
 
-    def verifyLoginEmail(self, login_email):
+    def verify_login_email(self, login_email):
         try:
             self.login_email = login_email
             self.driver.find_element(By.XPATH, self.locators["user_dropdown"]).click()
-            self.wait.until(self._checkLoginEmail)
+            self.wait.until(self._check_login_email)
             self.logged_in_email = self.driver.find_element(
                 By.XPATH, self.locators["logged_in_email"]
             ).text
         except Exception as e:
             print(f"Login not successful: {e}")
 
-    def _checkLoginEmail(self, driver):
+    def _check_login_email(self, driver):
         email = self.login_email
         return (
             driver.find_element(By.XPATH, self.locators["logged_in_email"]).text
