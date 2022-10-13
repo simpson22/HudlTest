@@ -12,7 +12,7 @@ class BasePage:
         self.driver: WebDriver = driver
         self.wait = WebDriverWait(
             driver,
-            timeout=3,
+            timeout=5,
             poll_frequency=1,
             ignored_exceptions=[
                 ElementNotVisibleException,

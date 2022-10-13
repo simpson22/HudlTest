@@ -1,7 +1,6 @@
 import os
 import pytest
 from selenium import webdriver
-from hudl.page.home import HomePage
 from hudl.page.login import LoginPage
 
 valid_email = os.environ.get("HUDL_EMAIL")
@@ -22,14 +21,15 @@ def page():
 
 
 # @pytest.mark.skip
-def test_connect(page):
+def test_connect(page: LoginPage):
     assert page.driver.title == "Log In"
 
 
 # @pytest.mark.skip
-def test_login(page):
+def test_login(page: LoginPage):
     home_page = page.login(valid_email, valid_password)
-    assert home_page.logged_in_email.text == valid_email
+    home_page.verifyLoginEmail(valid_email)
+    assert home_page.logged_in_email == valid_email
 
 
 @pytest.mark.parametrize(
@@ -43,19 +43,18 @@ def test_login(page):
     ],
 )
 # @pytest.mark.skip
-def test_bad_login_combinations(page, email, password):
+def test_bad_login_combinations(page: LoginPage, email, password):
     page.login(email, password)
     assert page.driver.title != "Home - Hudl"
 
 
 # @pytest.mark.skip
-def test_retry_login_journey(page):
+def test_retry_login_journey(page: LoginPage):
     page.login(valid_email, "bad_password")
     assert not page.login_button.is_enabled()
     page.password_input.clear()
     page.input_password(valid_password)
     assert page.login_button.is_enabled()
-    page.login_button.click()
-    # Abstract this away
-    home_page = HomePage(page.driver, valid_email)
-    assert home_page.logged_in_email.text == valid_email
+    home_page = page.click_login()
+    home_page.verifyLoginEmail(valid_email)
+    assert home_page.logged_in_email == valid_email

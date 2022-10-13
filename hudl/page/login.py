@@ -25,12 +25,13 @@ class LoginPage(BasePage):
 
     def click_login(self):
         self.login_button.click()
+        return HomePage(self.driver)
 
     def login(self, email, password):
         self.input_email(email)
         self.input_password(password)
-        self.click_login()
-        return HomePage(self.driver, email)
+        home_page = self.click_login()
+        return home_page
 
     def badLogin(self, email, password):
         self.input_email(email)
