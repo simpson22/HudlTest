@@ -21,12 +21,7 @@ def page():
 
 
 # @pytest.mark.skip
-def test_connect(page: LoginPage):
-    assert page.driver.title == "Log In"
-
-
-# @pytest.mark.skip
-def test_login(page: LoginPage):
+def test_valid_login(page: LoginPage):
     home_page = page.login(valid_email, valid_password)
     home_page.verifyLoginEmail(valid_email)
     assert home_page.logged_in_email == valid_email

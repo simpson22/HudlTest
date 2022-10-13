@@ -32,8 +32,3 @@ class LoginPage(BasePage):
         self.input_password(password)
         home_page = self.click_login()
         return home_page
-
-    def badLogin(self, email, password):
-        self.input_email(email)
-        self.input_password(password)
-        self.click_login()
