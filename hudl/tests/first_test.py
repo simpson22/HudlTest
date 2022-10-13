@@ -1,10 +1,11 @@
 import os
 import pytest
 from selenium import webdriver
+from hudl.page.home import HomePage
 from hudl.page.login import LoginPage
 
-email = os.environ.get("HUDL_EMAIL")
-password = os.environ.get("HUDL_PASSWORD")
+valid_email = os.environ.get("HUDL_EMAIL")
+valid_password = os.environ.get("HUDL_PASSWORD")
 
 
 @pytest.fixture(
@@ -27,18 +28,18 @@ def test_connect(page):
 
 # @pytest.mark.skip
 def test_login(page):
-    home_page = page.login(email, password)
-    assert home_page.driver.title == "Home - Hudl"
+    home_page = page.login(valid_email, valid_password)
+    assert home_page.logged_in_email.text == valid_email
 
 
 @pytest.mark.parametrize(
     "email,password",
     [
-        (email, ""),
-        ("", password),
-        (email, password.upper()),
-        (email, password.lower()),
-        pytest.param(email.upper(), password, marks=pytest.mark.xfail),
+        (valid_email, ""),
+        ("", valid_password),
+        (valid_email, valid_password.upper()),
+        (valid_email, valid_password.lower()),
+        pytest.param(valid_email.upper(), valid_password, marks=pytest.mark.xfail),
     ],
 )
 # @pytest.mark.skip
@@ -49,10 +50,12 @@ def test_bad_login_combinations(page, email, password):
 
 # @pytest.mark.skip
 def test_retry_login_journey(page):
-    page.login(email, 'bad_password')
+    page.login(valid_email, "bad_password")
     assert not page.login_button.is_enabled()
     page.password_input.clear()
-    page.input_password(password)
+    page.input_password(valid_password)
     assert page.login_button.is_enabled()
-    page.click_login()
-    assert page.driver.title == "Home - Hudl"
+    page.login_button.click()
+    # Abstract this away
+    home_page = HomePage(page.driver, valid_email)
+    assert home_page.logged_in_email.text == valid_email

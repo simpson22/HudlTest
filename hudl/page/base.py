@@ -8,7 +8,7 @@ from selenium.common.exceptions import (
 
 
 class BasePage:
-    def __init__(self, driver: WebDriver) -> None:
+    def __init__(self, driver: WebDriver):
         self.driver: WebDriver = driver
         self.wait = WebDriverWait(
             driver,

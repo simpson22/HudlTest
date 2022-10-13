@@ -6,13 +6,13 @@ from selenium.webdriver.common.by import By
 class LoginPage(BasePage):
     locators = {
         "email_input": "//input[@data-qa-id='email-input']",
-        "password_input":  "//input[@data-qa-id='password-input']",
-        "login_button": "//button[@data-qa-id='login-btn']"
+        "password_input": "//input[@data-qa-id='password-input']",
+        "login_button": "//button[@data-qa-id='login-btn']",
     }
 
     def load(self):
         self.driver.get("https://www.hudl.com/login")
-        self.wait.until(lambda driver: driver.find_element(By.XPATH, self.locators["email_input"]))
+        self.wait.until(lambda driver: driver.title == "Log In")
         self.email_input = self.driver.find_element(By.XPATH, self.locators["email_input"])
         self.password_input = self.driver.find_element(By.XPATH, self.locators["password_input"])
         self.login_button = self.driver.find_element(By.XPATH, self.locators["login_button"])
@@ -30,7 +30,7 @@ class LoginPage(BasePage):
         self.input_email(email)
         self.input_password(password)
         self.click_login()
-        return HomePage(self.driver)
+        return HomePage(self.driver, email)
 
     def badLogin(self, email, password):
         self.input_email(email)
